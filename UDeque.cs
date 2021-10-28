@@ -9,7 +9,7 @@ namespace CustomGenerics
     /// Represents a custom-made Deck object. Made by Un1ver5e!
     /// </summary>
     /// <typeparam name="T">Type of items in this Stack.</typeparam>
-    public class UDeck<T> : IEnumerable<T>
+    public class UDeque<T> : IEnumerable<T>
     {
         private TwoLinkedList<T> body;
 
@@ -64,19 +64,19 @@ namespace CustomGenerics
         /// <summary>
         /// Initializes an empty deck.
         /// </summary>
-        public UDeck() => body = new TwoLinkedList<T>();
+        public UDeque() => body = new TwoLinkedList<T>();
 
         /// <summary>
         /// Initializes a deck which contains the elements of given collection.
         /// </summary>
         /// <param name="collection">The original collection.</param>
-        public UDeck(IEnumerable<T> collection) => body = new TwoLinkedList<T>(collection);
+        public UDeque(IEnumerable<T> collection) => body = new TwoLinkedList<T>(collection);
 
         /// <summary>
         /// Initializes a deck which contains the elements of given collection.
         /// </summary>
         /// <param name="collection">The original collection.</param>
-        public UDeck(params T[] collection) => body = new TwoLinkedList<T>(collection);
+        public UDeque(params T[] collection) => body = new TwoLinkedList<T>(collection);
 
         /// <summary>
         /// Gets the Enumerator object for this deck.
