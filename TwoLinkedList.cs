@@ -11,7 +11,12 @@ namespace CustomGenerics
         /// <summary>
         /// Represents en empty Node, located both in the beginning and the end of the list, making it loop.
         /// </summary>
-        internal Node<T> endpoint = new Node<T>(default);
+        internal Node<T> endpoint = new Node<T>(badContent);
+
+        internal static T badContent
+        {
+            get => throw new ArgumentException("Collecion empty");
+        }
 
         /// <summary>
         /// Represents the first element of the list.
