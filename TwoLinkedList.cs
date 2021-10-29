@@ -6,17 +6,13 @@ using System.Text;
 
 namespace CustomGenerics
 {
-    internal class TwoLinkedList<T> : System.Collections.Generic.IEnumerable<T>
+
+    public abstract class TwoLinkedList<T> : System.Collections.Generic.IEnumerable<T>
     {
         /// <summary>
         /// Represents en empty Node, located both in the beginning and the end of the list, making it loop.
         /// </summary>
-        internal Node<T> endpoint = new Node<T>(badContent);
-
-        internal static T badContent
-        {
-            get => throw new ArgumentException("Collecion empty");
-        }
+        internal Node<T> endpoint = new Node<T>(default);
 
         /// <summary>
         /// Represents the first element of the list.
@@ -35,32 +31,16 @@ namespace CustomGenerics
         }
 
 
-        public T GetFirst() => first.Content;
-        public T GetLast() => last.Previous.Content;
+        internal T GetFirst() => first.Content;
+        internal T GetLast() => last.Previous.Content;
 
-        public T TakeFirst() => first.SafeTake().Content;
-        public T TakeLast() => last.SafeTake().Content;
+        internal T TakeFirst() => first.SafeTake().Content;
+        internal T TakeLast() => last.SafeTake().Content;
 
-        public void PlaceFirst(T item) => new Node<T>(item).PlaceBetween(endpoint, first);
-        public void PlaceLast(T item) => new Node<T>(item).PlaceBetween(last, endpoint);
+        internal void PlaceFirst(T item) => new Node<T>(item).PlaceBetween(endpoint, first);
+        internal void PlaceLast(T item) => new Node<T>(item).PlaceBetween(last, endpoint);
 
-        public bool IsEmpty() => endpoint.Next == endpoint;
-
-        public TwoLinkedList(params T[] collection)
-        {
-            for (int i = 0; i < collection.Length; i++)
-            {
-                PlaceLast(collection.ElementAt(i));
-            }
-        }
-
-        public TwoLinkedList(IEnumerable<T> collection)
-        {
-            for (int i = 0; i < collection.Count(); i++)
-            {
-                PlaceLast(collection.ElementAt(i));
-            }
-        }
+        internal bool IsEmpty() => endpoint.Next == endpoint;
 
         public override string ToString()
         {
@@ -80,15 +60,15 @@ namespace CustomGenerics
 
         internal class Node<T>
         {
-            public Node<T> Previous;
-            public T Content;
-            public Node<T> Next;
+            internal Node<T> Previous;
+            internal readonly T Content;
+            internal Node<T> Next;
 
             /// <summary>
             /// Takes the element and redefines it's neighbours' references.
             /// </summary>
             /// <returns></returns>
-            public Node<T> SafeTake()
+            internal Node<T> SafeTake()
             {
                 Previous.Next = Next;
                 Next.Previous = Previous;
@@ -100,7 +80,7 @@ namespace CustomGenerics
             /// </summary>
             /// <param name="previous"></param>
             /// <param name="next"></param>
-            public void PlaceBetween(Node<T> previous, Node<T> next)
+            internal void PlaceBetween(Node<T> previous, Node<T> next)
             {
                 Next = next;
                 Previous = previous;
@@ -112,7 +92,7 @@ namespace CustomGenerics
             /// Creates a Node with a specified content, referencing itself as its' neighbours.
             /// </summary>
             /// <param name="content"></param>
-            public Node(T content)
+            internal Node(T content)
             {
                 Content = content;
                 Next = this;
