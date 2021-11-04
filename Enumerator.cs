@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace CustomGenerics
 {
-    class TwoLinkedListEnumerator<T> : IEnumerator<T>
+    class UTwoLinkedListEnumerator<T> : IEnumerator<T>
     {
-        private TwoLinkedList<T> body;
-        private TwoLinkedList<T>.Node<T> currentElement;
+        private UTwoLinkedList<T> body;
+        private UTwoLinkedList<T>.Node<T> currentElement;
 
         public T Current => currentElement.Content;
 
@@ -25,7 +25,7 @@ namespace CustomGenerics
 
         public void Reset() => currentElement = body.endpoint;
 
-        public TwoLinkedListEnumerator(TwoLinkedList<T> body)
+        public UTwoLinkedListEnumerator(UTwoLinkedList<T> body)
         {
             this.body = body;
             currentElement = body.endpoint;

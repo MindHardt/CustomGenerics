@@ -4,7 +4,7 @@
     /// Represents a custom-made Stack object. Made by Un1ver5e!
     /// </summary>
     /// <typeparam name="T">Type of items in this Stack.</typeparam>
-    public sealed class UStack<T> : TwoLinkedList<T>
+    public sealed class UStack<T> : UTwoLinkedList<T>
     {
 
         /// <summary>
@@ -29,7 +29,7 @@
         /// Checks whether the stack contains elements.
         /// </summary>
         /// <returns>True if the stack contains no elements, otherwise false.</returns>
-        public bool IsEmpty() => base.IsEmpty();
+        public override bool IsEmpty() => base.IsEmpty();
 
         /// <summary>
         /// Returns the string representation of the stack, starting with the deepest lying elements.

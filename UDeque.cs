@@ -4,7 +4,7 @@
     /// Represents a custom-made Deck object. Made by Un1ver5e!
     /// </summary>
     /// <typeparam name="T">Type of items in this Stack.</typeparam>
-    public sealed class UDeque<T> : TwoLinkedList<T>
+    public sealed class UDeque<T> : UTwoLinkedList<T>
     {
 
         /// <summary>
@@ -47,7 +47,7 @@
         /// Checks whether the deck contains elements.
         /// </summary>
         /// <returns>True if deck contains no elements, otherwise false.</returns>
-        public bool IsEmpty() => base.IsEmpty();
+        public override bool IsEmpty() => base.IsEmpty();
 
         /// <summary>
         /// Returns the string representation of the deck, starting with the left bond.

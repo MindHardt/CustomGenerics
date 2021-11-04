@@ -10,7 +10,7 @@ namespace CustomGenerics
     /// Represents a two-way linked List. Made by Un1ver5e!
     /// </summary>
     /// <typeparam name="T">Type of items in the List.</typeparam>
-    public abstract class UTwoLinkedList<T> : System.Collections.Generic.IEnumerable<T>
+    public abstract partial class UTwoLinkedList<T> : System.Collections.Generic.IEnumerable<T>
     {
         /// <summary>
         /// Represents en empty Node, located both in the beginning and the end of the list, making it loop.
