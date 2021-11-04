@@ -6,8 +6,11 @@ using System.Text;
 
 namespace CustomGenerics
 {
-
-    public abstract class TwoLinkedList<T> : System.Collections.Generic.IEnumerable<T>
+    /// <summary>
+    /// Represents a two-way linked List. Made by Un1ver5e!
+    /// </summary>
+    /// <typeparam name="T">Type of items in the List.</typeparam>
+    public abstract class UTwoLinkedList<T> : System.Collections.Generic.IEnumerable<T>
     {
         /// <summary>
         /// Represents en empty Node, located both in the beginning and the end of the list, making it loop.
@@ -30,18 +33,49 @@ namespace CustomGenerics
             get => endpoint.Previous;
         }
 
+        /// <summary>
+        /// Gets the first item in the List.
+        /// </summary>
+        /// <returns>The first item in the List.</returns>
+        public T GetFirst() => first.Content;
+        /// <summary>
+        /// Gets the last item in the List.
+        /// </summary>
+        /// <returns>The last item in the List.</returns>
+        public T GetLast() => last.Content;
 
-        internal T GetFirst() => first.Content;
-        internal T GetLast() => last.Previous.Content;
+        /// <summary>
+        /// Takes the first item in the List and removes it.
+        /// </summary>
+        /// <returns>The first item in the List.</returns>
+        public T TakeFirst() => first.SafeTake().Content;
+        /// <summary>
+        /// Takes the last item in the List and removes it.
+        /// </summary>
+        /// <returns>The last item in the List.</returns>
+        public T TakeLast() => last.SafeTake().Content;
 
-        internal T TakeFirst() => first.SafeTake().Content;
-        internal T TakeLast() => last.SafeTake().Content;
+        /// <summary>
+        /// Places the item in the first position in the List.
+        /// </summary>
+        /// <param name="item">The item to place.</param>
+        public void PlaceFirst(T item) => new Node<T>(item).PlaceBetween(endpoint, first);
+        /// <summary>
+        /// Places the item in the last position in the List.
+        /// </summary>
+        /// <param name="item">The item to place.</param>
+        public void PlaceLast(T item) => new Node<T>(item).PlaceBetween(last, endpoint);
 
-        internal void PlaceFirst(T item) => new Node<T>(item).PlaceBetween(endpoint, first);
-        internal void PlaceLast(T item) => new Node<T>(item).PlaceBetween(last, endpoint);
+        /// <summary>
+        /// Defines whether the List contains any elements.
+        /// </summary>
+        /// <returns>True is the List is empty, otherwise false.</returns>
+        public virtual bool IsEmpty() => endpoint.Next == endpoint;
 
-        internal bool IsEmpty() => endpoint.Next == endpoint;
-
+        /// <summary>
+        /// Builds a string representation of this List.
+        /// </summary>
+        /// <returns>All the items in the List from first to the last.</returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -54,21 +88,21 @@ namespace CustomGenerics
             return sb.ToString();
         }
 
-        public IEnumerator<T> GetEnumerator() => new TwoLinkedListEnumerator<T>(this);
+        public IEnumerator<T> GetEnumerator() => new UTwoLinkedListEnumerator<T>(this);
 
-        IEnumerator IEnumerable.GetEnumerator() => new TwoLinkedListEnumerator<T>(this);
+        IEnumerator IEnumerable.GetEnumerator() => new UTwoLinkedListEnumerator<T>(this);
 
-        internal class Node<T>
+        internal class Node<I>
         {
-            internal Node<T> Previous;
-            internal readonly T Content;
-            internal Node<T> Next;
+            internal Node<I> Previous;
+            internal readonly I Content;
+            internal Node<I> Next;
 
             /// <summary>
             /// Takes the element and redefines it's neighbours' references.
             /// </summary>
             /// <returns></returns>
-            internal Node<T> SafeTake()
+            internal Node<I> SafeTake()
             {
                 Previous.Next = Next;
                 Next.Previous = Previous;
@@ -80,7 +114,7 @@ namespace CustomGenerics
             /// </summary>
             /// <param name="previous"></param>
             /// <param name="next"></param>
-            internal void PlaceBetween(Node<T> previous, Node<T> next)
+            internal void PlaceBetween(Node<I> previous, Node<I> next)
             {
                 Next = next;
                 Previous = previous;
@@ -92,7 +126,7 @@ namespace CustomGenerics
             /// Creates a Node with a specified content, referencing itself as its' neighbours.
             /// </summary>
             /// <param name="content"></param>
-            internal Node(T content)
+            internal Node(I content)
             {
                 Content = content;
                 Next = this;
