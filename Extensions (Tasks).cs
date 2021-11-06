@@ -4,6 +4,9 @@ using System.Text;
 
 namespace CustomGenerics
 {
+    //Напоминаю что у списков реализован перебор через foreach!!
+    
+    
     /// <summary>
     /// This class contains extension methods for UTwoLinkedList aka Tasks 1..12.
     /// </summary>
