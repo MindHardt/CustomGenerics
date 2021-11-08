@@ -94,9 +94,9 @@ namespace CustomGenerics
 
         internal class Node<I>
         {
-            internal Node<I> Previous;
+            internal Node<I> Previous { get; private set; }
             internal readonly I Content;
-            internal Node<I> Next;
+            internal Node<I> Next { get; private set; }
 
             /// <summary>
             /// Takes the element and redefines it's neighbours' references.
@@ -118,8 +118,32 @@ namespace CustomGenerics
             {
                 Next = next;
                 Previous = previous;
-                previous.Next = this;
-                next.Previous = this;
+                Previous.Next = this;
+                Next.Previous = this;
+            }
+
+            /// <summary>
+            /// Places the element after a specified element.
+            /// </summary>
+            /// <param name="element"></param>
+            internal void PlaceAfter(Node<I> element)
+            {
+                Next = element.Next;
+                Previous = element;
+                Previous.Next = this;
+                Next.Previous = this;
+            }
+
+            /// <summary>
+            /// Places the element before a specified element.
+            /// </summary>
+            /// <param name="element"></param>
+            internal void PlaceBefore(Node<I> element)
+            {
+                Next = element;
+                Previous = element.Previous;
+                Previous.Next = this;
+                Next.Previous = this;
             }
 
             /// <summary>
