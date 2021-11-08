@@ -16,9 +16,13 @@ namespace CustomGenerics
         /// Task 1: Reverse the List, making its items go backwards.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void Reverse()
+        public UTwoLinkedList<T> Reverse(UTwoLinkedList<T> list)
         {
-
+            var newList = new UStack<T>();
+            while (!list.IsEmpty())
+                newList.Push(list.TakeLast());
+            
+            return newList;
         }
 
         /// <summary>
@@ -36,15 +40,37 @@ namespace CustomGenerics
         /// <typeparam name="T"></typeparam>
         public void MoveLastToFirst()
         {
+            
 
         }
 
         /// <summary>
         /// Task 3: Count unique numbers in an integer List.
         /// </summary>
-        public int CountUnique()
+        public int CountUnique(UTwoLinkedList<T> list)
         {
-
+            var count = 0;
+            var elements = new UStack<T>();
+            foreach (var e in list) {
+                foreach (var el in elements) {
+                    if (!ContainsElement(elements, el)) {
+                        count++;
+                        elements.Push(e);
+                    }
+                }
+            }
+            
+            return count;
+        }
+        /// <summary>
+        /// The function that checks if the element contains a list
+        /// </summary>
+        private bool ContainsElement(UTwoLinkedList<T> list, T element)
+        {
+            foreach (var el in list)
+                if (el.Equals(element)) return true;
+            
+            return false;
         }
 
         /// <summary>
@@ -60,9 +86,15 @@ namespace CustomGenerics
         /// Task 5: Insert List into itself after the first occurance of the number.
         /// </summary>
         /// <param name="x">The number to seek for.</param>
-        public void InsertItselfAfter(int x)
+        public UTwoLinkedList<int> InsertItselfAfter(UTwoLinkedList<int> list, int x)
         {
-
+            var stack = new UStack<int>();
+            foreach (var e in list) {
+                stack.Push(e);
+                if (e == x) 
+                    foreach (var el in list) stack.Push(el);
+            }
+            return list;
         }
 
         /// <summary>
@@ -78,9 +110,13 @@ namespace CustomGenerics
         /// Task 7: Remove all occurances of the specified item within the List.
         /// </summary>
         /// <param name="item">The item to remove</param>
-        public void RemoveAll(T item)
+        public UTwoLinkedList<T> RemoveAll(UTwoLinkedList<T> list, T item)
         {
-
+            var newList = new UStack<T>();
+            foreach (var el in list) 
+                if (!el.Equals(item)) newList.Push(el);
+            
+            return newList;
         }
 
         /// <summary>
@@ -100,7 +136,8 @@ namespace CustomGenerics
         /// <param name="second">A list lying after.</param>
         public static UTwoLinkedList<int> Concat(UTwoLinkedList<int> first, UTwoLinkedList<int> second)
         {
-
+            foreach (var e in second) first.PlaceLast(e);
+            return first;
         }
 
         /// <summary>
@@ -113,12 +150,16 @@ namespace CustomGenerics
 
         }
 
-        /// <summary>
+        ///<summary>
         /// Task 11: Doubles the list, adding itself to its end.
         /// </summary>
-        public void Double()
+        public UTwoLinkedList<T> Double(UTwoLinkedList<T> list)
         {
+            var newList = new UStack<T>();
+            foreach (var e in list) newList.Push(e);
+            foreach (var e in list) newList.Push(e);
 
+            return newList;
         }
 
         /// <summary>
