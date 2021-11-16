@@ -17,9 +17,13 @@ namespace CustomGenerics
             get
             {
                 UStack<string> result = new UStack<string>();
+                string s;
                 using (StreamReader sr = new StreamReader(PathToDictionary))
                 {
-                    result.Push(sr.ReadLine());
+                    while (!sr.EndOfStream)
+                    {
+                        result.Push(sr.ReadLine());
+                    }
                 }
                 return result;
             }
@@ -71,10 +75,6 @@ namespace CustomGenerics
             Image table = Image.FromFile(PathToFolder + "\\1366x720.png");
             Graphics gTable = Graphics.FromImage(table);
 
-            table.Save(PathToFolder + "\\dummy.gif");
-            EncoderParameters encoder = new EncoderParameters();
-            encoder.Param[0] = new EncoderParameter(Encoder.SaveFlag, ())
-
             Font font = new Font(FontFamily.GenericMonospace, 30);
             Brush brush = new SolidBrush(Color.Black);
 
@@ -86,10 +86,9 @@ namespace CustomGenerics
                     gTable.DrawImage(Image.FromFile( PathToFolder + "\\" + colors.Pop()), rect);
                     gTable.DrawString(words.Pop(), font, brush, rect);
                 }
-                table.SaveAdd(table);
             }
 
-            table.Save(PathToFolder + "\\table.gif", ImageFormat.Gif);
+            table.Save(PathToFolder + "\\template.png", ImageFormat.Png);
         }
     }
 
@@ -105,6 +104,7 @@ namespace CustomGenerics
             {
                 if (rnd.Next(0, 2) == 1) newList.PlaceFirst(item); else newList.PlaceLast(item);
             }
+            Console.WriteLine(newList.ToString());
             return newList;
         }
     }
